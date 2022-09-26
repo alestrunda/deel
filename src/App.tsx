@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChangeEvent, useState } from "react";
+import ListUsers from "./components/ListUsers";
+import { useUsers } from "./hooks/useUsers";
+
+import "./App.css";
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const { error, isLoading, loadUsers, users } = useUsers();
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const searchQuery = e.target.value;
+    setSearchQuery(searchQuery);
+    loadUsers(searchQuery);
+  };
+
+  const hasEmptyResults = !error && !isLoading && searchQuery && !users.length;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="app">
+      <h1>Search users</h1>
+      <div className="loader">
+        <input
+          type="text"
+          placeholder="Search users"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        <div
+          className={`loader__content text-gray ${isLoading ? "active" : ""}`}
         >
-          Learn React
-        </a>
-      </header>
+          Loading...
+        </div>
+      </div>
+      {error && <p className="text-red">{error}</p>}
+      {hasEmptyResults && (
+        <p className="text-gray">No users fit the search query</p>
+      )}
+      {users.length > 0 && (
+        <ListUsers searchQuery={searchQuery} users={users} />
+      )}
     </div>
   );
 }

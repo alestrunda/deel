@@ -1,8 +1,14 @@
 # Deel
 
-Interview home assignment.
+Tiny react app to search users. Interview home assignment.
+
+Uses data from [jsonplaceholder api](https://jsonplaceholder.typicode.com/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## How to run the app
+
+Run `npm install` and then `npm start`. For more info see **Available Scripts** or documentation for **Create React App**.
 
 ## Available Scripts
 

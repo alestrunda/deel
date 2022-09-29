@@ -8,7 +8,7 @@
 
 2. **Context + ShouldComponentUpdate might be dangerous. Can think of why is that?**
 
-   Frankly, I had no knowledge of this, so I did a bit of googling. As I understand the problem would be if a component is connected only to a part of the context, which did not change, then `ShouldComponentUpdate` returns `false`, which causes the whole subtree of that component not to re-render. And that's where the problem is - a component in the subtree might be connected to a different part of the context that actually did change, but the compoment would not re-render.
+   The problem would be if a component is connected only to a part of the context, which did not change, then `ShouldComponentUpdate` returns `false`, which causes the whole subtree of that component not to re-render. And that's where the problem is - a component in the subtree might be connected to a different part of the context that actually did change, but the compoment would not re-render.
 
 3. **Describe 3 ways to pass information from a component to its PARENT.**
 
